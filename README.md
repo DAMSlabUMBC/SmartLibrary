@@ -9,12 +9,15 @@ Hello! Welcome Smart Library app for the DAMS Lab at UMBC. This repo will be for
 1. **Clone The Repository**
     - HTTPS: `git clone https://github.com/pearcepackman/DAMSlabUMBC-SmartLibrary`
     - SSH: `git clone git@github.com:pearcepackman/DAMSlabUMBC-SmartLibrary.git`
+2. **Navigate To App Directory**
+    - Note that the app directory is in /SmartLibrary, **not** the home dir of this Repo!
+    - `cd SmartLibrary`
 2. **Install Dependencies**
     - `npm install`
 3. **Run The Development Server**
     - `npx expo start`
 4. **Download Expo Go App and Scan QR Code**
-    - This will bring up the development app on your phone
+    - This will bring up the development app on your phone :)
 
 ## Update History
-- 9/1/2025 - Created repo, initialized Expo Go app, wrote startup instructions 
+- 9/1/2025 - Created repo, initialized Expo Go app, wrote startup instructions, changed boilerplate slightly with UMBC logo

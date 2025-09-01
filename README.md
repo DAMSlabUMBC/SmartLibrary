@@ -20,4 +20,18 @@ Hello! Welcome Smart Library app for the DAMS Lab at UMBC. This repo will be for
     - This will bring up the development app on your phone :)
 
 ## Update History
-- 9/1/2025 - Created repo, initialized Expo Go app, wrote startup instructions, changed boilerplate slightly with UMBC logo
+- 9/1/2025 - Created repo, initialized Expo Go app, wrote startup instructions, changed boilerplate slightly with UMBC logo, added `media` directory, added screenshot to README.md
+
+## Screenshots and Media
+<p align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="media/9.1.2025.jpg" width="200"/><br/>
+        <em>Home Page as of Sep 1, 2025</em>
+      </td>
+    </tr>
+  </table>
+</p>
+
+

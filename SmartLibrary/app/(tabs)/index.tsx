@@ -3,6 +3,7 @@ import { Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import  FloorTab from '@/components/FloorTab';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { red } from 'react-native-reanimated/lib/typescript/Colors';
@@ -22,19 +23,12 @@ export default function HomeScreen() {
           , everything on this app is subject to change</ThemedText>
         </ThemedView>
 
-      <ThemedView style = {styles.floorContainer}>
-        <ThemedView style = {styles.floorStatus}>
-          <ThemedView style = {styles.floorStatusIndicator}>
-
-          </ThemedView>
-        </ThemedView>
-        <ThemedView style = {styles.floorText}>
-          <ThemedText style = {styles.floorName}>
-            Floor 1
-          </ThemedText>
-
-        </ThemedView>
-      </ThemedView>
+      <FloorTab floorNumber={1} floorStatus={2}/>
+      <FloorTab floorNumber={2} floorStatus={3}/>
+      <FloorTab floorNumber={3} floorStatus={1}/>
+      <FloorTab floorNumber={4} floorStatus={1}/>
+      <FloorTab floorNumber={5} floorStatus={4}/>
+      
 
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>

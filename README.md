@@ -20,6 +20,7 @@ Hello! Welcome Smart Library app for the DAMS Lab at UMBC. This repo will be for
     - This will bring up the development app on your phone :)
 
 ## Update History
+- 9/10/2025 - Added some FloorTab text, messing around with emojis instead of just text, testing branches
 - 9/5/2025 - Added FloorTab component, takes in floor number and status, will be adding more functionality to this soon!
 - 9/4/2025 - Fixed README.md to display pictures correctly :)
 - 9/3/2025 - Updated styling, added prototype note at top, began floor layout, added progress screenshot
@@ -30,6 +31,10 @@ Hello! Welcome Smart Library app for the DAMS Lab at UMBC. This repo will be for
   <table>
     <tr>
     <td align="center">
+        <img src="media/9.10.25.jpg" width="200"/><br/>
+        <em>Home Page as of Sep 10, 2025</em>
+      </td>
+      <td align="center">
         <img src="media/9.5.2025.PNG" width="200"/><br/>
         <em>Home Page as of Sep 5, 2025</em>
       </td>
@@ -37,7 +42,9 @@ Hello! Welcome Smart Library app for the DAMS Lab at UMBC. This repo will be for
         <img src="media/9.3.2025.PNG" width="200"/><br/>
         <em>Home Page as of Sep 3, 2025</em>
       </td>
-      <td align="center">
+    </tr>
+    <tr>
+    <td align="center">
         <img src="media/9.1.2025.jpg" width="200"/><br/>
         <em>Home Page as of Sep 1, 2025</em>
       </td>

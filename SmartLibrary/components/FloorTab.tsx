@@ -1,6 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function FloorTab({ floorNumber, floorStatus }) {
   return (
@@ -15,6 +16,18 @@ export default function FloorTab({ floorNumber, floorStatus }) {
           <ThemedText style = {styles.floorName}>
             Floor {floorNumber}, Status: {floorStatus}
           </ThemedText>
+          <ThemedView style = {styles.floorStatsContainer}>
+            <ThemedText style = {styles.floorStatsLeft}>
+              <MaterialIcons name="light-mode" size={15}/>: Very Bright{"\n"}
+              <MaterialIcons name="graphic-eq" size={15}/>: Very Noisy{"\n"}
+              <MaterialIcons name="ac-unit" size = {15}/>: Very Hot{"\n"}
+            </ThemedText>
+            <ThemedText style = {styles.floorStatsRight}>
+              <MaterialIcons name="light-mode" size={15}/>: Very Bright{"\n"}
+              <MaterialIcons name="graphic-eq" size={15}/>: Very Noisy{"\n"}
+              <MaterialIcons name="ac-unit" size = {15}/>: Very Hot{"\n"}
+            </ThemedText>
+          </ThemedView>
 
         </ThemedView>
       </ThemedView>
@@ -41,18 +54,9 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     
   },
-  reactLogo: {
-    top: 0,
-    height: 250,
-    width: 250,
-    bottom: 0,
-    left: 62,
-    right: 0,
-    position: 'absolute',
-  },
   floorContainer: {
     //backgroundColor: 'green',
-    height: 80,
+    height: 150,
     flexDirection: 'row',
     width: '100%',
     borderWidth: 1,
@@ -68,9 +72,9 @@ const styles = StyleSheet.create({
   },
   floorText: {
     //backgroundColor: 'blue',
-    width: '80%',
-    height: '80%',
-    marginTop: 'auto',
+    width: '75%',
+    height: '90%',
+    marginTop: 0,
     marginBottom: 'auto',
   },
   floorStatusIndicator: {
@@ -80,6 +84,8 @@ const styles = StyleSheet.create({
     width: 40,
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginTop: 0,
+    marginBottom: 'auto',
   },
   floorName: {
     color: 'black',
@@ -90,5 +96,32 @@ const styles = StyleSheet.create({
     //backgroundColor: 'grey',
     lineHeight: 30,
     
+  },
+  floorStatsContainer: {
+    //backgroundColor: 'grey',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+    
+  },
+  floorStatsLeft: {
+    //backgroundColor: 'red',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    height: '100%',
+    width: '48%',
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: 30
+  },
+  floorStatsRight: {
+    //backgroundColor: 'green',
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    width: '48%',
+    height: '100%',
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: 30
+
   }
 });

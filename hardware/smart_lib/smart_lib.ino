@@ -21,7 +21,7 @@ Light Sleep for ESP32: https://randomnerdtutorials.com/esp32-light-sleep-arduino
 #define BME680_I2C_ADDR 0x76 //addr for sensor per 12C protocol
 #define NUM_TASKS 5
 
-Adafruit_BME680 bme_sensor; //bme680 sensor object
+// Adafruit_BME680 bme_sensor; //bme680 sensor object
 /***********************************************************
 //The mqtt section below is a template I copied. Our setup with the DAMs Lab mqtt broker hasn't being decided
 //probably not going to use wifi to connect to the broker
@@ -86,7 +86,7 @@ void publish_readings();
 
 void setup() {
   
-  serial.begin();
+  Serial.begin(9600);
   // while (!Serial); // Wait for serial monitor to open
 
   // // Initialize the BME680 sensor
@@ -128,9 +128,9 @@ void setup() {
   // Enable wake-up by timer
   esp_err_t result = esp_sleep_enable_timer_wakeup(sleep_time);
   if (result == ESP_OK) {
-    Serial.println("Timer Wake-Up set successfully as wake-up source.");
+    Serial.println("Timer Wake-Up set successfully as wake-up source.\n");
   } else {
-    Serial.println("Failed to set Timer Wake-Up as wake-up source.");
+    Serial.println("Failed to set Timer Wake-Up as wake-up source.\n");
   }
 }
 
@@ -141,11 +141,11 @@ void loop() {
   // NOTE: bme680 sensor should go into sleep mode as well for conserving power
 
   for (int i = 0; i < NUM_TASKS; i++) {
-    (*taskQueue[i])(); //calls the function at the specified index
+    (*task_queue[i])(); //calls the function at the specified index
   }
 
   // Serial.println("*******Entering Light Sleep Mode");
-  // delay(500);
+  delay(5000);
   // esp_light_sleep_start();     
 }
 
@@ -154,10 +154,10 @@ void read_light_sensor() {
   Esp32 has an analog resolution of 12 bits so it can detect up to 4096 analog levels.
   So analog read will return a value between 0 and 4095 which corresponds to 0V to 3.3V
   */
-  Serial.println("*********Reading Light Sensor************");
-  int temp = analogRead(LIGHT_PIN); //returns a value between 0-4095
-  Serial.print("Sound is ");
-  Serial.print(temp);
+  // Serial.println("*********Reading Light Sensor************\n");
+  // int temp = analogRead(LIGHT_PIN); //returns a value between 0-4095
+  // Serial.print("light is \n");
+  // Serial.print(temp);
 
 
   //need to figure out conversion calculations
@@ -169,8 +169,13 @@ void read_sound_sensor() {
   Esp32 has an analog resolution of 12 bits so it can detect up to 4096 analog levels.
   So analog read will return a value between 0 and 4095 which corresponds to 0V to 3.3V
   */
-  Serial.println("********Reading From Sound Sensor**********");
+  Serial.println("*********Reading Sound Sensor************\n");
   int temp = analogRead(SOUND_PIN); //returns a value between 0-4095
+  Serial.print("Sound is: ");
+  Serial.print(temp);
+  Serial.print("\n");
+
+
 
 
   //need to figure out conversion calculations

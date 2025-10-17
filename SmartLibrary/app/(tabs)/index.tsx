@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   floorContainer: {
-    //backgroundColor: 'green',
+    backgroundColor: 'green',
     height: 80,
     flexDirection: 'row',
     width: '100%',

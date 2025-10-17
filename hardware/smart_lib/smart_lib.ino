@@ -87,19 +87,19 @@ void publish_readings();
 void setup() {
   
   serial.begin();
-  while (!Serial); // Wait for serial monitor to open
+  // while (!Serial); // Wait for serial monitor to open
 
-  // Initialize the BME680 sensor
-  Serial.println("*********INITITLIAZING BME680 SENSOR*********")
-  while (!bme_sensor.begin(BME680_I2C_ADDR)) {
-    Serial.println("Error! BME680 sensor not detected");
-  }
-  // Configure bme sensor settings
-  bme_sensor.setTemperatureOversampling(BME680_OS_8X); //8x oversampling rate
-  bme_sensor.setHumidityOversampling(BME680_OS_2X);
-  bme_sensor.setPressureOversampling(BME680_OS_4X);
-  bme_sensor.setIIRFilterSize(BME680_FILTER_SIZE_3);
-  bme_sensor.setGasHeater(320, 150); // 320°C for 150 ms
+  // // Initialize the BME680 sensor
+  // Serial.println("*********INITITLIAZING BME680 SENSOR*********")
+  // while (!bme_sensor.begin(BME680_I2C_ADDR)) {
+  //   Serial.println("Error! BME680 sensor not detected");
+  // }
+  // // Configure bme sensor settings
+  // bme_sensor.setTemperatureOversampling(BME680_OS_8X); //8x oversampling rate
+  // bme_sensor.setHumidityOversampling(BME680_OS_2X);
+  // bme_sensor.setPressureOversampling(BME680_OS_4X);
+  // bme_sensor.setIIRFilterSize(BME680_FILTER_SIZE_3);
+  // bme_sensor.setGasHeater(320, 150); // 320°C for 150 ms
 
   //Once again the set up with DAMs mqtt broker hasn't been decided, this is just a placeholder
   // set the ADC attenuation to 11 dB (up to ~3.3V input)
@@ -144,9 +144,9 @@ void loop() {
     (*taskQueue[i])(); //calls the function at the specified index
   }
 
-  Serial.println("*******Entering Light Sleep Mode");
-  delay(500);
-  esp_light_sleep_start();     
+  // Serial.println("*******Entering Light Sleep Mode");
+  // delay(500);
+  // esp_light_sleep_start();     
 }
 
 void read_light_sensor() {
@@ -156,6 +156,9 @@ void read_light_sensor() {
   */
   Serial.println("*********Reading Light Sensor************");
   int temp = analogRead(LIGHT_PIN); //returns a value between 0-4095
+  Serial.print("Sound is ");
+  Serial.print(temp);
+
 
   //need to figure out conversion calculations
 
@@ -168,6 +171,7 @@ void read_sound_sensor() {
   */
   Serial.println("********Reading From Sound Sensor**********");
   int temp = analogRead(SOUND_PIN); //returns a value between 0-4095
+
 
   //need to figure out conversion calculations
 }

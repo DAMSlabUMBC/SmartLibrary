@@ -5,6 +5,7 @@ https://adafruit.github.io/Adafruit_BME680/html/class_adafruit___b_m_e680.html
 
 AnalogInputs: https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
 
+Light Sleep for ESP32: https://randomnerdtutorials.com/esp32-light-sleep-arduino/
 */
 
 #include <WiFi.h>
@@ -13,15 +14,15 @@ AnalogInputs: https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
 #include <Wire.h> //for I2C protocol
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME680.h>
+#include "esp_sleep.h"
 
 #define SOUND_PIN 35
 #define LIGHT_PIN 34
 #define BME680_I2C_ADDR 0x76 //addr for sensor per 12C protocol
 #define NUM_TASKS 5
-#define PUBLISH_INTERVAL 5000
 
 Adafruit_BME680 bme_sensor; //bme680 sensor object
-
+/***********************************************************
 //The mqtt section below is a template I copied. Our setup with the DAMs Lab mqtt broker hasn't being decided
 //probably not going to use wifi to connect to the broker
 const char WIFI_SSID[] = "YOUR_WIFI_SSID";
@@ -43,6 +44,18 @@ WiFiClient network;
 MQTTClient mqtt = MQTTClient(256);
 
 unsigned long lastPublishTime = 0;
+************************************************************/
+typedef struct{
+  int temp = 0;
+  int humidity = 0;
+  int pressure = 0;
+} bme_reading_t;
+
+int light_reading = 0;
+int sound_reading = 0;
+bme_reading_t bme_readings;
+uint64_t sleep_time = 5000000; //5 sec
+
 
 void (*task_queue[NUM_TASKS])(); //array of function pointers. each function is a task to be performed
 
@@ -90,20 +103,20 @@ void setup() {
 
   //Once again the set up with DAMs mqtt broker hasn't been decided, this is just a placeholder
   // set the ADC attenuation to 11 dB (up to ~3.3V input)
-  analogSetAttenuation(ADC_11db);
+  // analogSetAttenuation(ADC_11db);
 
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  // WiFi.mode(WIFI_STA);
+  // WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-  Serial.println("ESP32 - Connecting to Wi-Fi");
+  // Serial.println("ESP32 - Connecting to Wi-Fi");
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println();
+  // while (WiFi.status() != WL_CONNECTED) {
+  //   delay(500);
+  //   Serial.print(".");
+  // }
+  // Serial.println();
 
-  connectToMQTT();
+  // connectToMQTT();
 
 
   task_queue[0] = read_light_sensor;
@@ -112,17 +125,61 @@ void setup() {
   task_queue[3] = read_nova_sensor;
   task_queue[4] = publish_readings;
 
-
+  // Enable wake-up by timer
+  esp_err_t result = esp_sleep_enable_timer_wakeup(sleep_time);
+  if (result == ESP_OK) {
+    Serial.println("Timer Wake-Up set successfully as wake-up source.");
+  } else {
+    Serial.println("Failed to set Timer Wake-Up as wake-up source.");
+  }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
   // after the specified time interval has elapsed an 
   // interrupt wakes up the esp32 which then runs the tasks in the task queue.
-  // then esp32 goes to sleep for the specified time to conserve power
+  // then esp32 goes to sleep for the specified time to conserve power.
+  // NOTE: bme680 sensor should go into sleep mode as well for conserving power
+
+  for (int i = 0; i < NUM_TASKS; i++) {
+    (*taskQueue[i])(); //calls the function at the specified index
+  }
+
+  Serial.println("*******Entering Light Sleep Mode");
+  delay(500);
+  esp_light_sleep_start();     
+}
+
+void read_light_sensor() {
+  /*
+  Esp32 has an analog resolution of 12 bits so it can detect up to 4096 analog levels.
+  So analog read will return a value between 0 and 4095 which corresponds to 0V to 3.3V
+  */
+  Serial.println("*********Reading Light Sensor************");
+  int temp = analogRead(LIGHT_PIN); //returns a value between 0-4095
+
+  //need to figure out conversion calculations
 
 }
 
+void read_sound_sensor() {
+  /*
+  Esp32 has an analog resolution of 12 bits so it can detect up to 4096 analog levels.
+  So analog read will return a value between 0 and 4095 which corresponds to 0V to 3.3V
+  */
+  Serial.println("********Reading From Sound Sensor**********");
+  int temp = analogRead(SOUND_PIN); //returns a value between 0-4095
 
+  //need to figure out conversion calculations
+}
 
+void read_bme_sensor() {
+
+}
+
+void read_nova_sensor() {
+
+}
+
+void publish_readings() {
+
+}

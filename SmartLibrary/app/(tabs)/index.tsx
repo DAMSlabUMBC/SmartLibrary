@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   floorStatus: {
-    //backgroundColor: 'red',
+    backgroundColor: 'red',
     width: '20%',
     justifyContent: 'center',
     height: '80%',

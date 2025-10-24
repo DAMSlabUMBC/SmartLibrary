@@ -232,7 +232,7 @@ void publish_readings() {
   }
 
 }
-
+//no
 void connectToMQTT() {
   // Connect to the MQTT broker
   mqtt.begin(MQTT_BROKER_ADRRESS, MQTT_PORT, network);

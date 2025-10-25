@@ -1,127 +1,113 @@
-import { Platform, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Pressable } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function FloorTab({ floorNumber, floorStatus }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <ThemedView>
-      <ThemedView style = {styles.floorContainer}>
-        <ThemedView style = {styles.floorStatus}>
-          <ThemedView style = {styles.floorStatusIndicator}>
-
-          </ThemedView>
-        </ThemedView>
-        <ThemedView style = {styles.floorText}>
-          <ThemedText style = {styles.floorName}>
-            Floor {floorNumber}, Status: {floorStatus}
-          </ThemedText>
-          <ThemedView style = {styles.floorStatsContainer}>
-            <ThemedText style = {styles.floorStatsLeft}>
-              <MaterialIcons name="light-mode" size={15}/>: Very Bright{"\n"}
-              <MaterialIcons name="graphic-eq" size={15}/>: Very Noisy{"\n"}
-              <MaterialIcons name="ac-unit" size = {15}/>: Very Hot{"\n"}
-            </ThemedText>
-            <ThemedText style = {styles.floorStatsRight}>
-              <MaterialIcons name="light-mode" size={15}/>: Very Bright{"\n"}
-              <MaterialIcons name="graphic-eq" size={15}/>: Very Noisy{"\n"}
-              <MaterialIcons name="ac-unit" size = {15}/>: Very Hot{"\n"}
-            </ThemedText>
+    <ThemedView style={[styles.container, expanded && styles.containerExpanded]}>
+      <Pressable onPress={() => setExpanded(!expanded)}>
+        <ThemedView style={styles.header}>
+          {/* Status Section */}
+          <ThemedView style={styles.floorStatus}>
+            <ThemedView style={styles.floorStatusIndicator} />
           </ThemedView>
 
+          {/* Text Section */}
+          <ThemedView style={styles.floorText}>
+            <ThemedText style={styles.floorName}>
+              Floor {floorNumber}, Status: {floorStatus}
+            </ThemedText>
+            <MaterialIcons
+              name={expanded ? 'expand-less' : 'expand-more'}
+              size={24}
+              style={styles.icon}
+            />
+          </ThemedView>
         </ThemedView>
-      </ThemedView>
+      </Pressable>
+
+      {/* Collapsible Content */}
+      {expanded && (
+        <ThemedView style={styles.expandedContent}>
+          <ThemedView style={styles.floorStatsContainer}>
+            <ThemedText style={styles.floorStatsLeft}>
+              <MaterialIcons name="light-mode" size={15} />: Very Bright{'\n'}
+              <MaterialIcons name="graphic-eq" size={15} />: Very Noisy{'\n'}
+              <MaterialIcons name="ac-unit" size={15} />: Very Hot{'\n'}
+            </ThemedText>
+            <ThemedText style={styles.floorStatsRight}>
+              <MaterialIcons name="light-mode" size={15} />: Very Bright{'\n'}
+              <MaterialIcons name="graphic-eq" size={15} />: Very Noisy{'\n'}
+              <MaterialIcons name="ac-unit" size={15} />: Very Hot{'\n'}
+            </ThemedText>
+          </ThemedView>
+        </ThemedView>
+      )}
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: -5,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  warningLabel: {
-    marginTop: -30,
-    //backgroundColor: 'orange',
-    padding: 0,
-    gap: 0,
-    marginBottom: 0,
-    
-  },
-  floorContainer: {
-    //backgroundColor: 'green',
-    height: 150,
-    flexDirection: 'row',
-    width: '100%',
+  container: {
     borderWidth: 1,
+    borderColor: '#ccc',
     borderRadius: 10,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    overflow: 'hidden', // this keeps corners consistent when expanded
+  },
+  header: {
+    flexDirection: 'row',
+    paddingVertical: 12,
+    backgroundColor: '#fff',
   },
   floorStatus: {
-    backgroundColor: 'red',
     width: '20%',
     justifyContent: 'center',
-    height: '80%',
-    marginTop: 'auto',
-    marginBottom: 'auto',
   },
   floorText: {
-    //backgroundColor: 'blue',
-    width: '75%',
-    height: '90%',
-    marginTop: 0,
-    marginBottom: 'auto',
+    width: '80%',
   },
   floorStatusIndicator: {
     backgroundColor: 'lightgreen',
     height: 40,
-    borderRadius: 100,
     width: 40,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 0,
-    marginBottom: 'auto',
+    borderRadius: 100,
+    alignSelf: 'center',
   },
   floorName: {
     color: 'black',
-    marginLeft: 10,
-    marginTop: 10,
-    fontWeight: 700,
-    fontSize: 30,
-    //backgroundColor: 'grey',
-    lineHeight: 30,
-    
+    fontWeight: '700',
+    fontSize: 22,
+    marginLeft: 8,
+  },
+  icon: {
+    alignSelf: 'flex-end',
+    marginRight: 8,
+  },
+  expandedContent: {
+    backgroundColor: '#F8F9FA',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
   },
   floorStatsContainer: {
-    //backgroundColor: 'grey',
     flexDirection: 'row',
-    justifyContent: 'space-between'
-    
+    justifyContent: 'space-between',
   },
   floorStatsLeft: {
-    //backgroundColor: 'red',
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    height: '100%',
     width: '48%',
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: 30
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 26,
   },
   floorStatsRight: {
-    //backgroundColor: 'green',
-    marginBottom: 'auto',
-    marginTop: 'auto',
     width: '48%',
-    height: '100%',
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: 30
-
-  }
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 26,
+  },
 });

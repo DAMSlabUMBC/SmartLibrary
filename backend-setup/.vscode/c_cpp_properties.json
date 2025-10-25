@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "name": "ESP32",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${userHome}/Documents/Arduino/libraries/**",
+        "${userHome}/Library/Arduino15/**"
+      ],
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false,
+        "path": [
+          "${userHome}/Documents/Arduino/libraries",
+          "${userHome}/Library/Arduino15"
+        ]
+      },
+      "defines": [
+        "ARDUINO=10819",
+        "ESP_PLATFORM",
+        "ESP32"
+      ],
+      "intelliSenseMode": "clang-x64",
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c11",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}

@@ -1,19 +1,19 @@
 {
-  "name": "backend-setup",
-  "version": "1.0.0",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
+  "name": "smartlibrary-backend",
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node "
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "mqtt": "^5.14.1"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mqtt": "^5.14.1",
+    "socket.io": "^4.7.5",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

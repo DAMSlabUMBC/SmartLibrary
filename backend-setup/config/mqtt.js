@@ -2,25 +2,28 @@
 import mqtt from "mqtt";
 import logger from "../utils/logger.js";
 import { config } from "./index.js";
+const client = mqtt.connect(config.mqtt.brokerUrl);
 
-let client;
 
 export const setupMqtt = () => {
-  client = mqtt.connect(config.mqtt.brokerUrl, {
-    username: config.mqtt.username,
-    password: config.mqtt.password,
-  });
-
   client.on("connect", () => {
     logger.info(" MQTT connected");
-    client.subscribe("smartcampus/#", (err) => {
+    client.subscribe(config.mqtt.topic, (err) => {
       if (err) logger.error(" MQTT subscription error:", err);
+      else logger.info(`Subscribe to topic: ${config.mqtt.topic}`)
     });
   });
 
   client.on("message", (topic, message) => {
     logger.info(` MQTT Message: [${topic}] ${message.toString()}`);
-    // Add logic to handle messages here (e.g., save to DB, emit via websocket)
+    try {
+        const data = JSON.parse(message.toString());
+        console.log("Recived data", data);
+    
+    }catch(err){
+        console.error("Error parsing message: ", err );
+    }
+    
   });
 
   client.on("error", (err) => {

@@ -101,7 +101,7 @@ void sendToMQTT();
 * function to handle messages from subscribed topic in the broker. this won't exist in the final version of this code since the 
 * esp32 doesn't need to subscribe to any topics
 */
-void messageHandler(String &topic, String &payload)
+void messageHandler(String &topic, String &payload);
 
 void setup() {
   

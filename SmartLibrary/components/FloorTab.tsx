@@ -2,44 +2,59 @@ import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function FloorTab({ floorNumber, floorStatus }) {
   const [expanded, setExpanded] = useState(false);
 
+  // Theme-aware colors
+  const bg = useThemeColor({}, 'background');
+  const card = useThemeColor({}, 'card');            // expo-template built-in
+  const border = useThemeColor({}, 'border');
+  const text = useThemeColor({}, 'text');
+  const subtle = useThemeColor({}, 'secondaryBackground');
+
   return (
-    <ThemedView style={[styles.container, expanded && styles.containerExpanded]}>
+    <ThemedView
+      style={[
+        styles.container,
+        expanded && styles.containerExpanded,
+        { backgroundColor: card, borderColor: border },
+      ]}
+    >
       <Pressable onPress={() => setExpanded(!expanded)}>
-        <ThemedView style={styles.header}>
-          {/* Status Section */}
+        <ThemedView style={[styles.header, { backgroundColor: card }]}>
           <ThemedView style={styles.floorStatus}>
-            <ThemedView style={styles.floorStatusIndicator} />
+            <ThemedView
+              style={[
+                styles.floorStatusIndicator,
+                { backgroundColor: floorStatus === 'OK' ? 'lightgreen' : 'orange' },
+              ]}
+            />
           </ThemedView>
 
-          {/* Text Section */}
           <ThemedView style={styles.floorText}>
-            <ThemedText style={styles.floorName}>
+            <ThemedText style={[styles.floorName, { color: text }]}>
               Floor {floorNumber}, Status: {floorStatus}
             </ThemedText>
             <MaterialIcons
               name={expanded ? 'expand-less' : 'expand-more'}
               size={24}
-              style={styles.icon}
             />
           </ThemedView>
         </ThemedView>
       </Pressable>
 
-      {/* Collapsible Content */}
       {expanded && (
-        <ThemedView style={styles.expandedContent}>
+        <ThemedView style={[styles.expandedContent, { backgroundColor: subtle }]}>
           <ThemedView style={styles.floorStatsContainer}>
-            <ThemedText style={styles.floorStatsLeft}>
+            <ThemedText style={[styles.floorStatsLeft, { color: text }]}>
               <MaterialIcons name="light-mode" size={15} />: Very Bright{'\n'}
               <MaterialIcons name="graphic-eq" size={15} />: Very Noisy{'\n'}
               <MaterialIcons name="ac-unit" size={15} />: Very Hot{'\n'}
             </ThemedText>
-            <ThemedText style={styles.floorStatsRight}>
+            <ThemedText style={[styles.floorStatsRight, { color: text }]}>
               <MaterialIcons name="light-mode" size={15} />: Very Bright{'\n'}
               <MaterialIcons name="graphic-eq" size={15} />: Very Noisy{'\n'}
               <MaterialIcons name="ac-unit" size={15} />: Very Hot{'\n'}
@@ -54,16 +69,13 @@ export default function FloorTab({ floorNumber, floorStatus }) {
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: '#ccc',
     borderRadius: 10,
     marginBottom: 10,
-    backgroundColor: '#fff',
-    overflow: 'hidden', // this keeps corners consistent when expanded
+    overflow: 'hidden',
   },
   header: {
     flexDirection: 'row',
     paddingVertical: 12,
-    backgroundColor: '#fff',
   },
   floorStatus: {
     width: '20%',
@@ -73,14 +85,12 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   floorStatusIndicator: {
-    backgroundColor: 'lightgreen',
     height: 40,
     width: 40,
     borderRadius: 100,
     alignSelf: 'center',
   },
   floorName: {
-    color: 'black',
     fontWeight: '700',
     fontSize: 22,
     marginLeft: 8,
@@ -90,7 +100,6 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   expandedContent: {
-    backgroundColor: '#F8F9FA',
     paddingVertical: 10,
     paddingHorizontal: 12,
   },

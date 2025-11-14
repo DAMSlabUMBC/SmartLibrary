@@ -31,7 +31,9 @@ export default function TabTwoScreen() {
       }
     });
 
-    return () => client.end();
+    return () => {
+      client.end(true);
+    }
   }, []);
 
   return (

@@ -31,6 +31,10 @@ Hello! Welcome Smart Library app for the DAMS Lab at UMBC. This repo will be for
   <table>
     <tr>
     <td align="center">
+        <img src="media/12.4.2025.PNG" width="200"/><br/>
+        <em>Home Page as of Sep 10, 2025</em>
+      </td>
+    <td align="center">
         <img src="media/9.10.25.jpg" width="200"/><br/>
         <em>Home Page as of Sep 10, 2025</em>
       </td>
@@ -38,12 +42,12 @@ Hello! Welcome Smart Library app for the DAMS Lab at UMBC. This repo will be for
         <img src="media/9.5.2025.PNG" width="200"/><br/>
         <em>Home Page as of Sep 5, 2025</em>
       </td>
+      </tr>
+      <tr>
       <td align="center">
         <img src="media/9.3.2025.PNG" width="200"/><br/>
         <em>Home Page as of Sep 3, 2025</em>
       </td>
-    </tr>
-    <tr>
     <td align="center">
         <img src="media/9.1.2025.jpg" width="200"/><br/>
         <em>Home Page as of Sep 1, 2025</em>
